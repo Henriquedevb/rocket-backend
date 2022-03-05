@@ -34,6 +34,8 @@ class ImportCategoryUseCase {
         .on('error', (error) => {
           reject(error);
         });
+
+      fs.promises.unlink(file.path);
     });
   }
 
@@ -43,13 +45,12 @@ class ImportCategoryUseCase {
     categories.map(async (category) => {
       const { name, description } = category;
 
-      const existCategory = this.categoriesRepository.findByName(name);
+      const existCategory = await this.categoriesRepository.findByName(name);
 
       if (!existCategory) {
-        this.categoriesRepository.create({ name, description });
+        await this.categoriesRepository.create({ name, description });
       }
     });
-    fs.promises.unlink(file.path);
   }
 }
 
