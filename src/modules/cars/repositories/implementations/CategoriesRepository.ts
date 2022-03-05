@@ -1,8 +1,8 @@
-import { Category } from '../model/category';
+import { Category } from '../../entities/category';
 import {
   ICategoriesRepository,
   ICreateCategoryDto,
-} from './ICategoriesRepository';
+} from '../ICategoriesRepository';
 
 class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[];
@@ -20,11 +20,7 @@ class CategoriesRepository implements ICategoriesRepository {
     return CategoriesRepository.INSTANCE;
   }
 
-  findAll() {
-    return this.categories;
-  }
-
-  async create({ name, description }: ICreateCategoryDto): Promise<void> {
+  create({ name, description }: ICreateCategoryDto): void {
     const category = new Category();
 
     Object.assign(category, {
@@ -40,6 +36,10 @@ class CategoriesRepository implements ICategoriesRepository {
       (category) => category.name === name
     );
     return categoryName;
+  }
+
+  list() {
+    return this.categories;
   }
 }
 

@@ -1,12 +1,11 @@
-import { Specification } from '../model/specification';
-import { ISpecificationsRepository } from '../repositories/ISpecificationsRepository';
+import { ISpecificationsRepository } from '../../repositories/ISpecificationsRepository';
 
 interface IRequest {
   name: string;
   description: string;
 }
 
-class CreateSpecificationService {
+class CreateSpecificationUseCase {
   constructor(private specificationRepository: ISpecificationsRepository) {}
 
   execute({ name, description }: IRequest): void {
@@ -19,10 +18,6 @@ class CreateSpecificationService {
 
     this.specificationRepository.create({ name, description });
   }
-
-  findAll(): Specification[] {
-    return this.specificationRepository.findAll();
-  }
 }
 
-export { CreateSpecificationService };
+export { CreateSpecificationUseCase };
