@@ -1,3 +1,4 @@
+import { getRepository, Repository } from 'typeorm';
 import { Category } from '../../entities/category';
 import {
   ICategoriesRepository,
@@ -5,41 +6,25 @@ import {
 } from '../ICategoriesRepository';
 
 class CategoriesRepository implements ICategoriesRepository {
-  private categories: Category[];
+  private repository: Repository<Category>;
 
-  private static INSTANCE: CategoriesRepository;
-
-  private constructor() {
-    this.categories = [];
+  constructor() {
+    this.repository = getRepository(Category);
   }
 
-  public static getInstance(): CategoriesRepository {
-    if (!CategoriesRepository.INSTANCE) {
-      CategoriesRepository.INSTANCE = new CategoriesRepository();
-    }
-    return CategoriesRepository.INSTANCE;
+  async create({ name, description }: ICreateCategoryDto): Promise<void> {
+    const category = this.repository.create({ description, name });
+    await this.repository.save(category);
   }
 
-  create({ name, description }: ICreateCategoryDto): void {
-    const category = new Category();
-
-    Object.assign(category, {
-      name,
-      description,
-      created_at: new Date(),
-    });
-    this.categories.push(category);
+  async list(): Promise<Category[]> {
+    const categories = await this.repository.find();
+    return categories;
   }
 
-  findByName(name: string): Category {
-    const categoryName = this.categories.find(
-      (category) => category.name === name
-    );
-    return categoryName;
-  }
-
-  list() {
-    return this.categories;
+  async findByName(name: string): Promise<Category> {
+    const category = await this.repository.findOne({ name });
+    return category;
   }
 }
 
