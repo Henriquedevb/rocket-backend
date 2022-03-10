@@ -7,7 +7,8 @@
     "dev": "ts-node-dev --transpile-only --inspect --ignore-watch node_modules --respawn src/server.ts",
     "start": "nodemon dist/server.js",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
-    "test": "jest"
+    "test": "jest",
+    "test:cov": "npx jest --coverage"
   },
   "keywords": [],
   "author": "",

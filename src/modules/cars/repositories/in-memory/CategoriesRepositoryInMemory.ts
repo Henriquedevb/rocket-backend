@@ -1,4 +1,4 @@
-import { Category } from '../../entities/category';
+import { Category } from '../../typeorm/entities/category';
 import {
   ICategoriesRepository,
   ICreateCategoryDto,

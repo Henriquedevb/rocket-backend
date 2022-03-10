@@ -3,6 +3,7 @@ import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 import { AppError } from '../../../../errors/AppErros';
 import { IUserRepository } from '../../repositories/IUserRepository';
+import env from '../../../../app.env';
 
 interface IRequest {
   email: string;
@@ -37,9 +38,8 @@ class AuthUserUseCase {
       throw new AppError('Email or password incorrect');
     }
 
-    const token = sign({}, process.env.JWT_HASH_SECRET, {
-      subject: user.id,
-      expiresIn: process.env.JWT_EXPIRES_IN,
+    const token = sign({ id: user.id }, env.JWT_SECRET, {
+      expiresIn: `${env.JWT_EXPIRES_IN}d`,
     });
 
     const tokenReturn: IResponse = {

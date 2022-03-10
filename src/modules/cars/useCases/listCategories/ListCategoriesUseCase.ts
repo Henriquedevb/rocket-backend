@@ -1,5 +1,5 @@
-import { Category } from '../../entities/category';
-import { CategoriesRepository } from '../../repositories/implementations/CategoriesRepository';
+import { Category } from '../../typeorm/entities/category';
+import { CategoriesRepository } from '../../typeorm/repositories/CategoriesRepository';
 import { inject, injectable } from 'tsyringe';
 
 @injectable()
