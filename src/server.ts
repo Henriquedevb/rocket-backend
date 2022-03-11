@@ -4,7 +4,6 @@ import 'express-async-errors';
 import swaggerUi from 'swagger-ui-express';
 import './database';
 import { AppError } from './errors/AppErros';
-import { captureIpUser } from './middlewares/captureIp';
 import { router } from './routes';
 import './shared/container';
 import swaggerFile from './swagger.json';
@@ -24,12 +23,6 @@ app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
   return res.status(500).json({
     status: 'error',
     message: `Internal server error - ${error.message}`,
-  });
-});
-
-app.get('/ip', (req, res) => {
-  captureIpUser('`http://ip-api.com/json`').then((resolve) => {
-    console.log(resolve);
   });
 });
 

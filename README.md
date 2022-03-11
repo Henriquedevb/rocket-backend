@@ -2,11 +2,9 @@
 
 **Requisitos Funcionais**
 Deve ser possível cadastrar um carro.
-Deve ser possível listar todas as categorias.
 
 **Regra de Negocio**
 Nao deve ser possível cadastrar um carro com uma placa ja existente.
-Nao deve ser possível alterar a placa de um carro ja cadastrado.
 Nao deve ser cadastrado carro sem disponibilidade por padrão.
 Nao deve ser cadastrado carro por usuário sem a role admin.
 
