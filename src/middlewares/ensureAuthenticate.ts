@@ -4,7 +4,7 @@ import { AppError } from '../errors/AppErros';
 import { UsersRepository } from '../modules/accounts/typeorm/repositories/UsersRepository';
 
 interface IPayload {
-  sub: string;
+  id: string;
 }
 
 export async function ensureAuthenticate(
@@ -21,20 +21,17 @@ export async function ensureAuthenticate(
   const [, token] = authHeader.split(' ');
 
   try {
-    const { sub: user_id } = verify(
-      token,
-      process.env.JWT_HASH_SECRET
-    ) as IPayload;
+    const { id } = verify(token, process.env.JWT_HASH_SECRET) as IPayload;
 
     const usersRepository = new UsersRepository();
-    const userExist = usersRepository.findById(user_id);
+    const userExist = await usersRepository.findById(id);
 
     if (!userExist) {
       throw new AppError('User does not exists.', 401);
     }
 
     req.user = {
-      id: user_id,
+      id,
     };
 
     next();
