@@ -8,7 +8,6 @@
     "start": "nodemon dist/server.js",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
     "test": "jest",
-    "test:cov": "npx jest --coverage",
     "seed:admin": "ts-node-dev src/database/seed/admin.ts"
   },
   "keywords": [],
