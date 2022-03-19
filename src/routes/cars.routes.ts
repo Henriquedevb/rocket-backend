@@ -1,16 +1,21 @@
 import { Router } from 'express';
+import multer from 'multer';
+import uploadConfig from '../config/upload';
 import { ensureAdmin } from '../middlewares/ensureAdmin';
 import { ensureAuthenticate } from '../middlewares/ensureAuthenticate';
 import { CreateCarController } from '../modules/cars/useCases/createCar/CreateCarController';
 import { CreateCarSpecificationController } from '../modules/cars/useCases/createCarSpecification/CreateCarSpecificationController';
-import { CreateSpecificationController } from '../modules/cars/useCases/createSpecifications/CreateSpecification.controller';
 import { ListAvailableCarsController } from '../modules/cars/useCases/listAvailableCars/ListAvailableCarsController';
+import { UploadCarImageController } from '../modules/cars/useCases/uploadImage/UploadCarImageController';
 
 const carsRouter = Router();
 
 const createCarController = new CreateCarController();
 const listAvailableCarsController = new ListAvailableCarsController();
 const createCarSpecificationController = new CreateCarSpecificationController();
+const uploadCarImagesController = new UploadCarImageController();
+
+const uploadImageCar = multer(uploadConfig.upload('./tmp/cars'));
 
 carsRouter.post(
   '/',
@@ -26,6 +31,14 @@ carsRouter.post(
   ensureAuthenticate,
   ensureAdmin,
   createCarSpecificationController.handle
+);
+
+carsRouter.post(
+  '/images/:id',
+  ensureAuthenticate,
+  ensureAdmin,
+  uploadImageCar.array('images'),
+  uploadCarImagesController.handle
 );
 
 export { carsRouter };

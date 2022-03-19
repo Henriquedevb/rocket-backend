@@ -39,7 +39,7 @@ class AuthUserUseCase {
     }
 
     const token = sign({ id: user.id }, env.JWT_SECRET, {
-      expiresIn: `${env.JWT_EXPIRES_IN}d`,
+      expiresIn: `${env.JWT_EXPIRES_IN}`,
     });
 
     const tokenReturn: IResponse = {

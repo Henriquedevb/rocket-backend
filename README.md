@@ -34,7 +34,6 @@ Nao deve ser cadastrado carro por usuário sem a role admin.
 
 **Requisitos Funcionais**
 Deve ser possível cadastrar a imagem do carro.
-Deve ser possível listar todos os carros.
 
 **Requisitos nao funcionais**
 Utilizar o multer para upload dos arquivos.

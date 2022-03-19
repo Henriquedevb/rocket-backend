@@ -1,7 +1,7 @@
 import { getConnection } from 'typeorm';
 import { randomUUID } from 'crypto';
 import { hash } from 'bcrypt';
-import createConnection from '../index';
+import '../index';
 
 async function create() {
   const connection = await createConnection('localhost');
