@@ -8,8 +8,8 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=ambiente_dev
-      - POSTGRES_PASSWORD=henrique_dev
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=henrique
       - POSTGRES_DB=ignite_henrique
     volumes:
       - pgdata:/data/postgres
