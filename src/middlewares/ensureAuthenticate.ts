@@ -36,6 +36,7 @@ export async function ensureAuthenticate(
 
     next();
   } catch (error) {
+    console.log(error);
     throw new AppError('Invalid token!', 401);
   }
 }
