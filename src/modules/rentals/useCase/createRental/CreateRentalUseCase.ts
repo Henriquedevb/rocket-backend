@@ -3,6 +3,7 @@ import utc from 'dayjs/plugin/utc';
 import { inject, injectable } from 'tsyringe';
 import { AppError } from '../../../../errors/AppErros';
 import { IDateProvider } from '../../../../shared/container/providers/DateProvider/IDateProvider';
+import { ICarsRepository } from '../../../cars/repositories/ICarsRepository';
 import { IRentalsRepository } from '../../repositories/IRentalsRepository';
 import { Rental } from '../../typeorm/entities/Rental';
 
@@ -19,7 +20,10 @@ class CreateRentalUseCase {
     private rentalsRepository: IRentalsRepository,
 
     @inject('DayjsDateProvider')
-    private dateProvider: IDateProvider
+    private dateProvider: IDateProvider,
+
+    @inject('CarsRepository')
+    private carsRepository: ICarsRepository
   ) {}
 
   async execute({
@@ -64,6 +68,8 @@ class CreateRentalUseCase {
       car_id,
       expected_return_date,
     });
+
+    await this.carsRepository.updateAvailable(car_id, false);
 
     return rental;
   }
