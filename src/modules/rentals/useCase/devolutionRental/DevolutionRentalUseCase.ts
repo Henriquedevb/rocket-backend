@@ -3,6 +3,7 @@ import { AppError } from '../../../../errors/AppErros';
 import { IDateProvider } from '../../../../shared/container/providers/DateProvider/IDateProvider';
 import { ICarsRepository } from '../../../cars/repositories/ICarsRepository';
 import { IRentalsRepository } from '../../repositories/IRentalsRepository';
+import { Rental } from '../../typeorm/entities/Rental';
 
 interface IRequest {
   id: string;
@@ -22,7 +23,7 @@ class DevolutionControllerUseCase {
     private dateProvider: IDateProvider
   ) {}
 
-  async execute({ id, user_id }: IRequest) {
+  async execute({ id, user_id }: IRequest): Promise<Rental> {
     const rental = await this.rentalsRepository.findById(id);
     const car = await this.carsRepository.findById(id);
 
